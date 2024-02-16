@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="form">
+    <p>builder works!</p>
+    <div fxLayout="column">
+      <div *ngFor="let question of questions">
+        <label>{{ question?.question }}</label>
+      </div>
+    </div>
+    <button mat-flat-button (click)="addNewQuestion()">Add new question</button>
+  </div>
+
+</div>

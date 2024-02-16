@@ -1,0 +1,48 @@
+<mat-card [formGroup]="formGroup" class="container">
+  <mat-card-header>
+    <mat-card-title>Shiba Inu</mat-card-title>
+    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+  </mat-card-header>
+  <div fxLayout="column" fxLayoutAlign="start start">
+    <mat-form-field>
+      <mat-label>Question Type</mat-label>
+      <mat-select formControlName="questionType">
+        <mat-option *ngFor="let option of  QuestionType" [value]="option">{{ QuestionTypeLabelMapping[option] }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Type question here</mat-label>
+      <input formControlName="question" matInput>
+    </mat-form-field>
+
+    <ng-container *ngIf="formGroup.get('questionType')?.value===QuestionTypes.checkList">
+
+      <ng-container formArrayName="answers">
+        <ng-container *ngFor="let control of answers.controls; let i = index">
+          <div [formGroupName]="i" style="width: 100%;">
+            <mat-form-field style="width: 100%;">
+              <mat-label>Add Answer Option</mat-label>
+              <input formControlName="optionName" matInput>
+            </mat-form-field>
+          </div>
+        </ng-container>
+
+        <button mat-flat-button (click)="addAnswerOption()">+ Add new answer</button>
+      </ng-container>
+    </ng-container>
+
+
+    <div fxLayout="column" fxLayoutAlign="start start">
+      <mat-checkbox formControlName="isAllowSpecifyAnswer" class="example-margin">Allow user to specify their answer
+      </mat-checkbox>
+      <mat-checkbox formControlName="isRequest" class="example-margin">This field is required</mat-checkbox>
+    </div>
+
+
+  </div>
+  <mat-card-actions>
+    <button mat-button (click)="submit()">Submit</button>
+  </mat-card-actions>
+</mat-card>
